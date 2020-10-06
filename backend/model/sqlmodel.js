@@ -6,18 +6,22 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 });
 
 
-class User extends Model {}
+class TraansactionLog extends Model {}
 
-User.init({
-  username: DataTypes.STRING,
-  birthday: DataTypes.DATE
-}, { sequelize, modelName: 'user' });
+TraansactionLog.init({
+  id: DataTypes.STRING,
+  user_id: DataTypes.STRING,
+  product_id: DataTypes.STRING,
+  action: DataTypes.ENUM('view', 'purchase')
+}, { sequelize, modelName: 'transactionLog' });
 
 (async () => {
   await sequelize.sync();
-  const jane = await User.create({
-    username: 'janedoe',
-    birthday: new Date(1980, 6, 20)
+  const logExample = await TraansactionLog.create({
+    id: '123456',
+    user_id: '456789',
+    product_id: '789456',
+    action: 'view'
   });
-  console.log(jane.toJSON());
+  console.log(logExample.toJSON());
 })();
