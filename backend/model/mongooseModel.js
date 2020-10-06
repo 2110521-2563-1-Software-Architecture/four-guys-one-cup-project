@@ -9,6 +9,7 @@ const productSchema = new Schema({
   price: mongoose.Types.Decimal128,
   vector: [mongoose.Types.Decimal128]
 });
+const Product = mongoose.model("Product",productSchema)
 
 const userSchema = new Schema({
   name:  String,
@@ -18,5 +19,6 @@ const userSchema = new Schema({
   occupation: String,
   vector: [mongoose.Types.Decimal128]
 });
+const User = mongoose.model("User",userSchema)
 
-export {productSchema as Product, userSchema as User}
+export { Product, User}
