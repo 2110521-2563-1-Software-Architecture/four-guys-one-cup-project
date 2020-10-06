@@ -11,7 +11,7 @@ async function getAllProduct(){
 
 async function getProduct(productId){
 
-    if (!itemId) return false
+    if (!productId) return false
     let product = await Product.findById(productId).exec();
     if (product){
         return product
