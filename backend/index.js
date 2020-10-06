@@ -1,6 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
-import {Sequelize, Model, DataTypes} from 'sequelize' 
 
 
 // Constants

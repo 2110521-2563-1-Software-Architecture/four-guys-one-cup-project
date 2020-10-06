@@ -15,6 +15,8 @@ TraansactionLog.init({
   action: DataTypes.ENUM('view', 'purchase')
 }, { sequelize, modelName: 'transactionLog' });
 
+export {TraansactionLog as Log}
+
 (async () => {
   await sequelize.sync();
   const logExample = await TraansactionLog.create({

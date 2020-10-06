@@ -18,3 +18,5 @@ const userSchema = new Schema({
   occupation: String,
   vector: [mongoose.Types.Decimal128]
 });
+
+export {productSchema as Product, userSchema as User}
