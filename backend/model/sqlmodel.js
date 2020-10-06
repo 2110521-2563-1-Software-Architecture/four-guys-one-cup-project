@@ -6,7 +6,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 });
 
 
-class TraansactionLog extends Model {}
+class TransactionLog extends Model {}
 
 TraansactionLog.init({
   id: DataTypes.STRING,
@@ -15,7 +15,7 @@ TraansactionLog.init({
   action: DataTypes.ENUM('view', 'purchase')
 }, { sequelize, modelName: 'transactionLog' });
 
-export {TraansactionLog as Log}
+export {TransactionLog as Log}
 
 (async () => {
   await sequelize.sync();
