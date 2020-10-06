@@ -3,15 +3,18 @@ const { Schema } = mongoose;
 
 mongoose.connect('mongodb://localhost:27017/myapp', {useNewUrlParser: true});
 
-const blogSchema = new Schema({
-  title:  String, // String is shorthand for {type: String}
-  author: String,
-  body:   String,
-  comments: [{ body: String, date: Date }],
-  date: { type: Date, default: Date.now },
-  hidden: Boolean,
-  meta: {
-    votes: Number,
-    favs:  Number
-  }
+const productSchema = new Schema({
+  name:  String,
+  category: String,
+  price: mongoose.Types.Decimal128,
+  vector: [mongoose.Types.Decimal128]
+});
+
+const userSchema = new Schema({
+  name:  String,
+  age: Number,
+  gender: String,
+  nationality: String,
+  occupation: String,
+  vector: [mongoose.Types.Decimal128]
 });
