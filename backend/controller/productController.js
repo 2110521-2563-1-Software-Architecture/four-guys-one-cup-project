@@ -1,7 +1,7 @@
 import Product from '../model/mongooseModel';
 
-function getProduct(itemId){
+async function getProduct(itemId){
 
-    
+    let product = Product.findOne({})
 
 }
