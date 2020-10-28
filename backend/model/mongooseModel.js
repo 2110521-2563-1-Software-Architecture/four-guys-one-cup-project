@@ -1,24 +1,62 @@
 import mongoose from 'mongoose';
-const { Schema } = mongoose;
+const  Schema  = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost:27017/4guys1cup', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://time131:softarch2020@recommendation.kyk6s.mongodb.net/Online_Shopping?retryWrites=true&w=majority', 
+{
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  autoIndex: true,
+  useFindAndModify: true
+});
+const counterSchema = new Schema({
+  _id: {
+    type:String,
+    required: true,
+  },
+  seq: { 
+    type: Number, 
+    default: 0 
+  }
+
+});
+const counter = await mongoose.model('counter', counterSchema).init();
 
 const productSchema = new Schema({
+  id: Number,
   name:  String,
   category: String,
   price: mongoose.Types.Decimal128,
   vector: [mongoose.Types.Decimal128]
 });
-const Product = mongoose.model("Product",productSchema)
+productSchema.pre('save', function(next){
+  var doc = this
+  counter.findByIdAndUpdate({_id: 'productId'}, {$inc: { seq: 1} }, {new: true, upsert: true}).then(function(count) {
+      doc.id = count.seq;
+      next();
+  })
+  .catch(function(error) {
+      console.error("counter error-> : "+error);
+      throw error;
+  });
+});
+const Products = await mongoose.model("Product",productSchema).init()
 
 const userSchema = new Schema({
-  name:  String,
+  email: {
+    type:String,
+    unique: true,
+    //required: true
+  },
+  name:  {
+    type:String,
+    required: true
+  },
   age: Number,
   gender: String,
   nationality: String,
   occupation: String,
   vector: [mongoose.Types.Decimal128]
 });
-const User = mongoose.model("User",userSchema)
+const Users = await mongoose.model("User",userSchema).init()
 
-export { Product, User}
+export { Products, Users}

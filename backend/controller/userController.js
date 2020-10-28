@@ -1,24 +1,43 @@
-import User from '../model/mongooseModel'
-import Product from '../model/mongooseModel'
+import {Users} from '../model/mongooseModel.js'
+
+import {Products }from '../model/mongooseModel.js'
+import {contentBasedFiltering} from './recommendController.js'
 
 const getUser = async (userId) => {
-    return await User.findById(userId).exec()
+    return await Users.findById(userId).exec()
 }
 
 const getAllUsers = async () => {
-    return await User.find({})
+    return await Users.find({})
 }
 
-const addUser = async (user) => {
-    return await User.create(user)
+const addUser = async (body, res) => {
+    try{
+        let user = new Users(body);
+        await user.save()
+        res.send(user);
+    }catch(err){
+        res.status(500).send(err);
+    }
 }
 
-const purchase = async (productId) => {
-    let product = await Product.findById(productId).exec()
-    // TODO //
-    /* Change Vector for Recommendation */
+const purchase = async (userEmail,productId, res) => {
+    const productVector = await Products.findOne({id: productId}).exec();
+    const user = await Users.findOne({email: userEmail}).exec();
+    //cal vector
+    
+    let newVector = contentBasedFiltering.updateUserVector(user.vector, productVector.vector)
+    user.vector = newVector
+    try{
+        await user.save()
+        res.send(user);
+    }catch(err){
+        res.status(500).send(err);
+    }
+
 }
 
 const getRecommendationProducts = async (userId) => {
     // TODO //
 }
+export {getUser, getAllUsers, addUser, purchase}

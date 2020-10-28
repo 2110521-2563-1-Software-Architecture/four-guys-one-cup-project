@@ -1,5 +1,5 @@
-import Product from '../model/mongooseModel';
 
+import {Products }from '../model/mongooseModel.js'
 
 async function getAllProduct(){
 
@@ -23,14 +23,17 @@ async function getProduct(productId){
 
 }
 
-async function addProduct(product){
+async function addProduct(body, res){
+    try{
+        let newProduct = new Products(body)
+        await newProduct.save()
+        res.send(newProduct)
+    }catch(err){
+        res.status(500).send(err);
+        console.log(err)
+    }
     
-    let newProduct = await Product.create(
-        product
-    ).exec();
     
-    return newProduct
-
 }
 
 export { getAllProduct, getProduct, addProduct }
