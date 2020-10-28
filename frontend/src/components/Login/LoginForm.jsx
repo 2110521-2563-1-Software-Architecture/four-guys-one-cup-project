@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import "../Login/LoginForm.css"
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,7 +25,7 @@ function Login() {
     }
 
     return (
-        <div className="card">
+        <div className="card login">
             <div class="card-body">
                 <h4 class="card-title mb-4">Sign-in</h4>
                 <form>

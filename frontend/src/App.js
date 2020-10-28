@@ -1,7 +1,8 @@
 import React ,{ useState, useEffect }from 'react';
 import axios from 'axios';
 import './App.css';
-import LoginForm from './components/Login/LoginForm'
+import NavBar from "./components/NavBar/NavBar";
+import Dashboard from "./components/Dashboard/Dashboard"
 
 const apiUrl = 'http://localhost:9000';
 
@@ -35,7 +36,6 @@ function App() {
 
     const clearJwt = async () => {
       // const { data } = await axios.get(`${apiUrl}/jwt/clear`);
-      let data = {"token": null};
       localStorage.setItem('token', null);
       setJwt(null);
     }
@@ -51,10 +51,12 @@ function App() {
     <div>
       <header className="App-header">
         {/* nav-bar */}
-        <h1>HEADER</h1>
+        <NavBar />
       </header>
       <div className='App-body'>
-        <LoginForm></LoginForm>
+        <div className="container-fluid">
+          <Dashboard/>
+        </div>
       </div>
       <footer className='App-footer'>
         {/* footer */}
