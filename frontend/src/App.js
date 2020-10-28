@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import NavBar from "./components/NavBar/NavBar";
 import Dashboard from "./components/Dashboard/Dashboard"
+import Footer from "./components/Footer/Footer"
 
 const apiUrl = 'http://localhost:9000';
 
@@ -60,7 +61,7 @@ function App() {
       </div>
       <footer className='App-footer'>
         {/* footer */}
-        <h1>FOOTER</h1>
+        <Footer/>
       </footer>
     </div>
   );
