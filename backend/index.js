@@ -1,16 +1,22 @@
 import express from 'express';
-import mongoose from 'mongoose'
+import cors from 'cors'
 import bodyParser from 'body-parser'
-import {addUser, purchase} from './controller/userController.js'
+import {addToCart, addUser, purchase} from './controller/userController.js'
 import {addProduct} from './controller/productController.js'
+import {checkToken, loginAttempt} from './controller/authController.js'
 
 // Constants
-const PORT = 2000;
+const PORT = 9000;
 
 
 // App
 
 const app = express();
+const corsOptions = {
+  origin : 'http://localhost:3000',
+  credentials: true
+}
+app.use(cors(corsOptions));
 app.use(bodyParser.json()); 
 //app.use(express.json());
 //app.use(Users);
@@ -21,13 +27,26 @@ app.get('/', (req, res) => {
     });
 });
 //Users CRUD
-app.post('/api/createUser', async (req, res) => {
+app.post('/api/users/register', async (req, res) => {
     addUser(req.body, res);
   });
 app.put('/api/userPurchase', async (req, res) => {
     let payload = req.body
     purchase(payload.email, payload.productId, res)
   });
+
+app.post('/api/users/login', async (req,res) => {
+    loginAttempt(req,res);
+});
+app.get('/api/auth/checkUser', (req,res) => {
+    checkToken(req,res)
+})
+
+app.post('/api/addToCart', async (req, res) => {
+    addToCart(req.body, res);
+  });
+
+
 //Product CRUD
 app.post('/api/createProduct', async (req, res) => {
   addProduct(req.body, res);

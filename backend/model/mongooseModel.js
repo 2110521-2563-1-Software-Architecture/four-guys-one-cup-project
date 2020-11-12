@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const  Schema  = mongoose.Schema;
+const Schema  = mongoose.Schema;
 
 mongoose.connect('mongodb+srv://time131:softarch2020@recommendation.kyk6s.mongodb.net/Online_Shopping?retryWrites=true&w=majority', 
 {
@@ -22,7 +22,6 @@ const counterSchema = new Schema({
 const counter = await mongoose.model('counter', counterSchema).init();
 
 const productSchema = new Schema({
-  id: Number,
   name:  String,
   category: String,
   price: mongoose.Types.Decimal128,
@@ -45,12 +44,14 @@ const userSchema = new Schema({
   email: {
     type:String,
     unique: true,
-    //required: true
+    required: true
   },
+  password : String,
   name:  {
     type:String,
     required: true
   },
+  cart: [{type:mongoose.Schema.Types.ObjectId, ref: "Product"}],
   age: Number,
   gender: String,
   nationality: String,

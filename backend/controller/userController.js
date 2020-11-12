@@ -1,5 +1,5 @@
 import {Users} from '../model/mongooseModel.js'
-
+import bcrypt from "bcryptjs"
 import {Products }from '../model/mongooseModel.js'
 import {contentBasedFiltering} from './recommendController.js'
 
@@ -12,6 +12,10 @@ const getAllUsers = async () => {
 }
 
 const addUser = async (body, res) => {
+    if (body.password) {
+        var hashedPassword = bcrypt.hashSync(body.password, 8);
+        body.password = hashedPassword;
+    }
     try{
         let user = new Users(body);
         await user.save()
@@ -40,4 +44,15 @@ const purchase = async (userEmail,productId, res) => {
 const getRecommendationProducts = async (userId) => {
     // TODO //
 }
-export {getUser, getAllUsers, addUser, purchase}
+
+const addToCart = async (userId, productId, res) => {
+    Users.findByIdAndUpdate(userId, {$push: {cart:productId}}, {new: true}, (err,updateUser) => {
+        if (err) {
+            res.status(500).send(err)
+        } else {
+            res.status(200).send(updateUser.cart)
+        }
+    })
+
+}
+export {getUser, getAllUsers, addUser, purchase, addToCart}

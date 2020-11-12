@@ -1,6 +1,7 @@
 import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import LoginModal from "../Modal/LoginModal"
+import RegisterModal from "../Modal/RegisterModal"
 
 const NavBar = () => {
     return (
@@ -46,10 +47,10 @@ const NavBar = () => {
                     <SearchBar />
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            {/* <a className="nav-link" href="#">
-                                Login
-                            </a> */}
                             <LoginModal/>
+                        </li>
+                        <li className="nav-item">
+                            <RegisterModal/>)
                         </li>
                         <li className="nav-item dropdown">
                             <a

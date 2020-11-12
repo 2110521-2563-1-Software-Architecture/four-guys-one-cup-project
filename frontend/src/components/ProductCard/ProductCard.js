@@ -1,6 +1,13 @@
+import axios from "axios";
 import React from "react";
 
 const ProfileCard = (props) => {
+
+    function addToCart(user,product) {
+        console.log(product)
+        axios.post("http://localhost:9000/api/addToCart", {userId:"TODO", productId: product.id})
+    }
+
     return (
         <div
             className="card card-product-grid"
@@ -30,7 +37,7 @@ const ProfileCard = (props) => {
                 >
                     {`฿${props.price}`}
                 </p>
-                <a href="#" className="btn btn-primary">
+                <a href="" className="btn btn-primary" onClick={() => addToCart("Todo",props)}>
                     Add to Cart
                 </a>
             </div>
