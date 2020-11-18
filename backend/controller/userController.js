@@ -2,6 +2,7 @@ import {Users} from '../model/mongooseModel.js'
 import bcrypt from "bcryptjs"
 import {Products }from '../model/mongooseModel.js'
 import {contentBasedFiltering} from './recommendController.js'
+import jwt from "jsonwebtoken"
 
 const getUser = async (userId) => {
     return await Users.findById(userId).exec()
@@ -45,14 +46,5 @@ const getRecommendationProducts = async (userId) => {
     // TODO //
 }
 
-const addToCart = async (userId, productId, res) => {
-    Users.findByIdAndUpdate(userId, {$push: {cart:productId}}, {new: true}, (err,updateUser) => {
-        if (err) {
-            res.status(500).send(err)
-        } else {
-            res.status(200).send(updateUser.cart)
-        }
-    })
 
-}
-export {getUser, getAllUsers, addUser, purchase, addToCart}
+export {getUser, getAllUsers, addUser, purchase}

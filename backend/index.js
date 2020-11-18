@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import {addToCart, addUser, purchase} from './controller/userController.js'
+import {addUser, purchase} from './controller/userController.js'
 import {addProduct} from './controller/productController.js'
 import {checkToken, loginAttempt} from './controller/authController.js'
 
@@ -31,8 +31,8 @@ app.post('/api/users/register', async (req, res) => {
     addUser(req.body, res);
   });
 app.put('/api/userPurchase', async (req, res) => {
-    let payload = req.body
-    purchase(payload.email, payload.productId, res)
+    decryptData(req),
+    purchase(req.body._id, req.body.productId , res)
   });
 
 app.post('/api/users/login', async (req,res) => {
@@ -41,11 +41,6 @@ app.post('/api/users/login', async (req,res) => {
 app.get('/api/auth/checkUser', (req,res) => {
     checkToken(req,res)
 })
-
-app.post('/api/addToCart', async (req, res) => {
-    addToCart(req.body, res);
-  });
-
 
 //Product CRUD
 app.post('/api/createProduct', async (req, res) => {
