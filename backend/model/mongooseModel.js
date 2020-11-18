@@ -25,7 +25,14 @@ const productSchema = new Schema({
   name:  String,
   category: String,
   price: mongoose.Types.Decimal128,
-  vector: [mongoose.Types.Decimal128]
+  vector: {
+    type: [mongoose.Types.Decimal128],
+    default: [0,0,0,0,0]
+  },
+  description: {
+    type: String,
+    default: ""
+  }
 });
 
 const Products = await mongoose.model("Product",productSchema).init()
@@ -46,7 +53,10 @@ const userSchema = new Schema({
   gender: String,
   nationality: String,
   occupation: String,
-  vector: [mongoose.Types.Decimal128]
+  vector: {
+    type: [mongoose.Types.Decimal128],
+    default: [0,0,0,0,0]
+  }
 });
 const Users = await mongoose.model("User",userSchema).init()
 

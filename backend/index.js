@@ -2,9 +2,9 @@ import express from 'express';
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import {addUser, purchase} from './controller/userController.js'
-import {addProduct} from './controller/productController.js'
+import {addProduct, getSortedProduct} from './controller/productController.js'
 import {checkToken, loginAttempt} from './controller/authController.js'
-
+import {decryptData} from './middlewares/authMiddleware.js'
 // Constants
 const PORT = 9000;
 
@@ -31,7 +31,8 @@ app.post('/api/users/register', async (req, res) => {
     addUser(req.body, res);
   });
 app.put('/api/userPurchase', async (req, res) => {
-    decryptData(req),
+    //decryptData(req),
+
     purchase(req.body._id, req.body.productId , res)
   });
 
@@ -46,5 +47,8 @@ app.get('/api/auth/checkUser', (req,res) => {
 app.post('/api/createProduct', async (req, res) => {
   addProduct(req.body, res);
 });
+app.get('/api/getSortedProducts', (req,res) => {
+  getSortedProduct(req.body.recommend, req.body._id, res)
+})
 app.listen(PORT);
 console.log(`Running on http://localhost:${PORT}`);
