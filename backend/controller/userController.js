@@ -2,7 +2,6 @@ import {Users} from '../model/mongooseModel.js'
 import bcrypt from "bcryptjs"
 import {Products }from '../model/mongooseModel.js'
 import {contentBasedFiltering} from './recommendController.js'
-import jwt from "jsonwebtoken"
 
 const getUser = async (userId) => {
     return await Users.findById(userId).exec()

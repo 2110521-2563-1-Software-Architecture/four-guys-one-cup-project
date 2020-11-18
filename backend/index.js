@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import {addUser, purchase} from './controller/userController.js'
-import {addProduct} from './controller/productController.js'
+import {addProduct, getAllProducts} from './controller/productController.js'
 import {checkToken, loginAttempt} from './controller/authController.js'
 
 // Constants
@@ -45,6 +45,15 @@ app.get('/api/auth/checkUser', (req,res) => {
 //Product CRUD
 app.post('/api/createProduct', async (req, res) => {
   addProduct(req.body, res);
+});
+app.get('/api/products', async (req,res) => {
+  try {
+    let products = await getAllProducts()
+    res.status(200).send(products)
+  } catch (err) {
+    console.log(err)
+    res.status(502).send(err)
+  }
 });
 app.listen(PORT);
 console.log(`Running on http://localhost:${PORT}`);

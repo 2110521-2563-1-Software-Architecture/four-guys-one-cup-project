@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 function ProductPanel() {
-    const [products, setProducts] = useState([
+    const [products, setProducts] = useState([]/*[
                                                 {
                                                     productName:"Playstation 5",
                                                     imageName:"ps5.jpg",
@@ -41,7 +41,7 @@ function ProductPanel() {
                                                     description:"Play Has No Limits I love you playstation 5",
                                                     price:"15990"
                                                 }
-                                            ]);
+                                            ]*/);
     const [recommendation, setRecommendation] = useState([
                                                             {
                                                                 productName:"Playstation 5",
@@ -67,8 +67,8 @@ function ProductPanel() {
         const apiUrl = 'http://localhost:9000';
 
         const getProducts = async () => {
-          const { data } = await axios.get(`${apiUrl}/products`);
-          setProducts(data.products);
+          const { data } = await axios.get(`${apiUrl}/api/products`);
+          setProducts(data)
         };
     
         const clearProducts = async () => {
@@ -76,11 +76,10 @@ function ProductPanel() {
         }
         
         getProducts();
-    
         return function cleanup() {
           clearProducts();
         };
-      });
+      },[]);
 
 
 
@@ -117,7 +116,7 @@ function ProductPanel() {
                         return (
                             <div className="col md-3" key={i}>
                                 <ProductCard
-                                    productName={product.productName}
+                                    productName={product.name}
                                     imageName={product.imageName}
                                     description={product.description}
                                     price={product.price}

@@ -19,7 +19,7 @@ const ProfileCard = (props) => {
         >
             <img
                 className="card-img-top"
-                src={require(`../../static/productImages/${props.imageName}`)}
+                // src={require(`../../static/productImages/${props.imageName}`)}
                 alt={props.productName}
                 height="60%"
             />
