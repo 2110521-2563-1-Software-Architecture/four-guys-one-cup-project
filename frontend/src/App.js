@@ -56,7 +56,7 @@ function App() {
       </header>
       <div className='App-body'>
         <div className="container-fluid">
-          <Dashboard/>
+          <Dashboard jwt={jwt}/>
         </div>
       </div>
       <footer className='App-footer'>

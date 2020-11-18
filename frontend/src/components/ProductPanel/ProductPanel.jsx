@@ -3,7 +3,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import axios from 'axios';
 
 
-function ProductPanel() {
+function ProductPanel(props) {
     const [products, setProducts] = useState([
                                                 {
                                                     productName:"Playstation 5",
@@ -82,11 +82,30 @@ function ProductPanel() {
         };
       });
 
+      useEffect(() => {
+        const apiUrl = 'http://localhost:9000';
+
+        const getRecommendation = async () => {
+          const { data } = await axios.get(`${apiUrl}/recommendation`);
+          setRecommendation(data.products);
+        };
+    
+        const clearRecommendation = async () => {
+          setRecommendation([]);
+        }
+        
+        getRecommendation();
+    
+        return function cleanup() {
+          clearRecommendation();
+        };
+      });
+
 
 
     return (
         <div className="mt-5">
-            <section className="mt-3">
+            {props.jwt && <section className="mt-3">
                 <div className="container">
                     <header class="section-heading">
                         <h3 class="d-flex section-title">Recommendation</h3>
@@ -106,28 +125,29 @@ function ProductPanel() {
                         })}
                     </div>
                 </div>
-            </section>
+            </section>}
             <section className="my-3">
-            <div className="container">
-                <header class="section-heading">
-                    <h3 class="section-title">Products</h3>
-                </header>
-                <div className="row">
-                    {products.map((product, i) => {
-                        return (
-                            <div className="col md-3" key={i}>
-                                <ProductCard
-                                    productName={product.productName}
-                                    imageName={product.imageName}
-                                    description={product.description}
-                                    price={product.price}
-                                />
-                            </div>
-                        )
-                    })}
+                <div className="container">
+                    <header class="section-heading">
+                        <h3 class="section-title">Products</h3>
+                    </header>
+                    <div className="row">
+                        {products.map((product, i) => {
+                            return (
+                                <div className="col md-3" key={i}>
+                                    <ProductCard
+                                        productId={product.id}
+                                        productName={product.productName}
+                                        imageName={product.imageName}
+                                        description={product.description}
+                                        price={product.price}
+                                    />
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
     </div>
     )
 }

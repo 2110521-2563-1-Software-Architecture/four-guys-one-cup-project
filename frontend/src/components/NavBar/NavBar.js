@@ -34,12 +34,12 @@ const NavBar = () => {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="">
                                 Product
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="">
                                 Payment
                             </a>
                         </li>
@@ -50,7 +50,7 @@ const NavBar = () => {
                             <LoginModal/>
                         </li>
                         <li className="nav-item">
-                            <RegisterModal/>)
+                            <RegisterModal/>
                         </li>
                         <li className="nav-item dropdown">
                             <a
