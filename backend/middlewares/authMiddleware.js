@@ -16,3 +16,4 @@ const decryptData = (req, res, next) => {
         next()
     });
 }
+export {decryptData}

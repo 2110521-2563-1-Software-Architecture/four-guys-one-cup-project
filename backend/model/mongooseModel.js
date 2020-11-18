@@ -25,19 +25,16 @@ const productSchema = new Schema({
   name:  String,
   category: String,
   price: mongoose.Types.Decimal128,
-  vector: [mongoose.Types.Decimal128]
+  vector: {
+    type: [mongoose.Types.Decimal128],
+    default: [0,0,0,0,0]
+  },
+  description: {
+    type: String,
+    default: ""
+  }
 });
-productSchema.pre('save', function(next){
-  var doc = this
-  counter.findByIdAndUpdate({_id: 'productId'}, {$inc: { seq: 1} }, {new: true, upsert: true}).then(function(count) {
-      doc.id = count.seq;
-      next();
-  })
-  .catch(function(error) {
-      console.error("counter error-> : "+error);
-      throw error;
-  });
-});
+
 const Products = await mongoose.model("Product",productSchema).init()
 
 const userSchema = new Schema({
@@ -56,7 +53,10 @@ const userSchema = new Schema({
   gender: String,
   nationality: String,
   occupation: String,
-  vector: [mongoose.Types.Decimal128]
+  vector: {
+    type: [mongoose.Types.Decimal128],
+    default: [0,0,0,0,0]
+  }
 });
 const Users = await mongoose.model("User",userSchema).init()
 

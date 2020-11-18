@@ -1,5 +1,7 @@
 
 import {Products }from '../model/mongooseModel.js'
+import {contentBasedFiltering} from './recommendController.js'
+import {getUser} from './userController.js'
 
 async function getAllProducts(){
 
@@ -14,6 +16,22 @@ async function getAllProducts(){
         }
     })
     return products
+
+}
+
+async function getSortedProduct(recommendAlgo, userId, res){
+    switch(recommendAlgo){
+        case "contentbased":
+            var recommend = contentBasedFiltering
+    }
+    let user = await getUser(userId)
+    let products = await Products.find({}).exec();
+    let sortedProducts = recommend.sortProduct(products, user.vector)
+    try{
+        res.send(sortedProducts)
+    }catch(err){
+        res.status(500).send(err);
+    }
 
 }
 
@@ -50,4 +68,4 @@ async function addProduct(body, res){
     
 }
 
-export { getAllProducts, getProduct, addProduct }
+export { getAllProducts, getProduct, addProduct, getSortedProduct }
