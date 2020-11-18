@@ -1,5 +1,5 @@
 import {Users} from '../model/mongooseModel.js'
-import bcrypt from "bcryptjs"
+
 import {Products }from '../model/mongooseModel.js'
 import {contentBasedFiltering} from './recommendController.js'
 
@@ -12,10 +12,6 @@ const getAllUsers = async () => {
 }
 
 const addUser = async (body, res) => {
-    if (body.password) {
-        var hashedPassword = bcrypt.hashSync(body.password, 8);
-        body.password = hashedPassword;
-    }
     try{
         let user = new Users(body);
         await user.save()
@@ -25,9 +21,9 @@ const addUser = async (body, res) => {
     }
 }
 
-const purchase = async (userEmail,productId, res) => {
+const purchase = async (userId,productId, res) => {
     const productVector = await Products.findOne({id: productId}).exec();
-    const user = await Users.findOne({email: userEmail}).exec();
+    const user = await Users.findOne({_id: userId}).exec();
     //cal vector
     
     let newVector = contentBasedFiltering.updateUserVector(user.vector, productVector.vector)
@@ -44,15 +40,4 @@ const purchase = async (userEmail,productId, res) => {
 const getRecommendationProducts = async (userId) => {
     // TODO //
 }
-
-const addToCart = async (userId, productId, res) => {
-    Users.findByIdAndUpdate(userId, {$push: {cart:productId}}, {new: true}, (err,updateUser) => {
-        if (err) {
-            res.status(500).send(err)
-        } else {
-            res.status(200).send(updateUser.cart)
-        }
-    })
-
-}
-export {getUser, getAllUsers, addUser, purchase, addToCart}
+export {getUser, getAllUsers, addUser, purchase}

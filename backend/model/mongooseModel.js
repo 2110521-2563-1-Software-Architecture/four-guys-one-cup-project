@@ -31,6 +31,7 @@ productSchema.pre('save', function(next){
   var doc = this
   counter.findByIdAndUpdate({_id: 'productId'}, {$inc: { seq: 1} }, {new: true, upsert: true}).then(function(count) {
       doc.id = count.seq;
+      console.log(doc.id)
       next();
   })
   .catch(function(error) {

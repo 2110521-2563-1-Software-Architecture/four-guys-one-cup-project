@@ -32,7 +32,7 @@ app.post('/api/users/register', async (req, res) => {
   });
 app.put('/api/userPurchase', async (req, res) => {
     let payload = req.body
-    purchase(payload.email, payload.productId, res)
+    purchase(payload._id, payload.productId, res)
   });
 
 app.post('/api/users/login', async (req,res) => {
