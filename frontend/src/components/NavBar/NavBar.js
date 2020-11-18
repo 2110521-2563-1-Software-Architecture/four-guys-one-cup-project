@@ -4,6 +4,7 @@ import LoginModal from "../Modal/LoginModal"
 import RegisterModal from "../Modal/RegisterModal"
 
 const NavBar = () => {
+    
     return (
         // </nav>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -47,34 +48,10 @@ const NavBar = () => {
                     <SearchBar />
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <LoginModal/>
+                            <RegisterModal/>
                         </li>
                         <li className="nav-item">
-                            <RegisterModal/>)
-                        </li>
-                        <li className="nav-item dropdown">
-                            <a
-                                className="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                            >
-                                English
-                            </a>
-                            <div
-                                className="dropdown-menu"
-                                aria-labelledby="navbarDropdown"
-                            >
-                                <a className="dropdown-item" href="#">
-                                    Thai
-                                </a>
-                                <a className="dropdown-item" href="#">
-                                    Chinese
-                                </a>
-                            </div>
+                            <LoginModal/>
                         </li>
                     </ul>
                 </div>
