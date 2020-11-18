@@ -2,6 +2,7 @@ import {Users} from '../model/mongooseModel.js'
 
 import {Products }from '../model/mongooseModel.js'
 import {contentBasedFiltering} from './recommendController.js'
+import jwt from "jsonwebtoken"
 
 const getUser = async (userId) => {
     return await Users.findById(userId).exec()
@@ -22,7 +23,7 @@ const addUser = async (body, res) => {
 }
 
 const purchase = async (userId,productId, res) => {
-    const productVector = await Products.findOne({id: productId}).exec();
+    const productVector = await Products.findOne({_id: productId}).exec();
     const user = await Users.findOne({_id: userId}).exec();
     //cal vector
     
@@ -40,4 +41,6 @@ const purchase = async (userId,productId, res) => {
 const getRecommendationProducts = async (userId) => {
     // TODO //
 }
+
+
 export {getUser, getAllUsers, addUser, purchase}
