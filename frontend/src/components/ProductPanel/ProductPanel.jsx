@@ -43,43 +43,49 @@ function ProductPanel() {
                                                 }
                                             ]*/);
     const [recommendation, setRecommendation] = useState([
-                                                            {
-                                                                productName:"Playstation 5",
-                                                                imageName:"ps5.jpg",
-                                                                description:"Play Has No Limits I love you playstation 5",
-                                                                price:"15990"
-                                                            },
-                                                            {
-                                                                productName:"Playstation 5",
-                                                                imageName:"ps5.jpg",
-                                                                description:"Play Has No Limits I love you playstation 5",
-                                                                price:"15990"
-                                                            },
-                                                            {
-                                                                productName:"Playstation 5",
-                                                                imageName:"ps5.jpg",
-                                                                description:"Play Has No Limits I love you playstation 5",
-                                                                price:"15990"
-                                                            }
+                                                            // {
+                                                            //     productName:"Playstation 5",
+                                                            //     imageName:"ps5.jpg",
+                                                            //     description:"Play Has No Limits I love you playstation 5",
+                                                            //     price:"15990"
+                                                            // },
+                                                            // {
+                                                            //     productName:"Playstation 5",
+                                                            //     imageName:"ps5.jpg",
+                                                            //     description:"Play Has No Limits I love you playstation 5",
+                                                            //     price:"15990"
+                                                            // },
+                                                            // {
+                                                            //     productName:"Playstation 5",
+                                                            //     imageName:"ps5.jpg",
+                                                            //     description:"Play Has No Limits I love you playstation 5",
+                                                            //     price:"15990"
+                                                            // }
                                                         ]);
 
     useEffect(() => {
-        const apiUrl = 'http://localhost:9000';
+        const apiUrl = '';
 
         const getProducts = async () => {
-          const { data } = await axios.get(`${apiUrl}/api/products`);
+          const { data } = await axios.get('/api/products');
           setProducts(data)
         };
     
         const clearProducts = async () => {
           setProducts([]);
         }
+
+        const getRecommendProducts = async () => {
+            const { data } = await axios.post(`/api/getSortedProducts`, {recommendAlgo:"contentbased"});
+            setRecommendation(data)
+        }
         
         getProducts();
+        getRecommendProducts();
         return function cleanup() {
           clearProducts();
         };
-      },[]);
+      },[...products, ...recommendation]);
 
 
 
@@ -95,7 +101,8 @@ function ProductPanel() {
                             return (
                                 <div className="col md-3" key={i}>
                                     <ProductCard
-                                        productName={product.productName}
+                                        _id = {product._id}
+                                        productName={product.name}
                                         imageName={product.imageName}
                                         description={product.description}
                                         price={product.price}
@@ -116,6 +123,7 @@ function ProductPanel() {
                         return (
                             <div className="col md-3" key={i}>
                                 <ProductCard
+                                    _id = {product._id}
                                     productName={product.name}
                                     imageName={product.imageName}
                                     description={product.description}

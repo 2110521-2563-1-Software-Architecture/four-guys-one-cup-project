@@ -19,14 +19,23 @@ async function getAllProducts(){
 
 }
 
-async function getSortedProduct(recommendAlgo, userId, res){
-    switch(recommendAlgo){
+async function getSortedProduct(req, res){
+    switch(req.body.recommendAlgo){
         case "contentbased":
             var recommend = contentBasedFiltering
     }
-    let user = await getUser(userId)
+    let user = await getUser(req.body.userId)
     let products = await Products.find({}).exec();
     let sortedProducts = recommend.sortProduct(products, user.vector)
+    sortedProducts = sortedProducts.map( product => {
+        return {
+            _id: product._id,
+            name: product.name,
+            category: product.category,
+            price: parseFloat(product.price),
+            description: product.description
+        }
+    })
     try{
         res.send(sortedProducts)
     }catch(err){

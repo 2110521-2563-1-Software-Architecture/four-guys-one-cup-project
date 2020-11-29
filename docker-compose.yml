@@ -1,0 +1,21 @@
+version: "3"
+
+services: 
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    expose: 
+      - 5000
+
+  backend:
+    container_name: backend
+    build: ./backend
+    expose: 
+      - 9000
+
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - 80:80
+      # - 443:443

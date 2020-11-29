@@ -5,12 +5,13 @@ import NavBar from "./components/NavBar/NavBar";
 import Dashboard from "./components/Dashboard/Dashboard"
 import Footer from "./components/Footer/Footer"
 
-const apiUrl = 'http://localhost:9000';
+const apiUrl = '';
 
 axios.interceptors.request.use(
   config => {
-    const { origin } = new URL(config.url);
-    const allowedOrigins = [apiUrl];
+    const origin = config.url.substring(0,4);
+    console.log(origin)
+    const allowedOrigins = ['/api'];
     const token = localStorage.getItem('token');
     if (allowedOrigins.includes(origin)) {
       config.headers.authorization = `Bearer ${token}`;
@@ -26,13 +27,14 @@ function App() {
 
   const storedJwt = localStorage.getItem('token');
   const [jwt, setJwt] = useState(storedJwt || null);
+  console.log(jwt)
 
   useEffect(() => {
+    axios.get("/api/products").then(res => console.log(res))
     const getJwt = async () => {
-      // const { data } = await axios.get(`${apiUrl}/jwt`);
-      let data = {"token": "dummyToken"};
-      localStorage.setItem('token', data.token);
-      setJwt(data.token);
+      
+      let token = localStorage.getItem('token')
+      setJwt(token);
     };
 
     const clearJwt = async () => {
@@ -52,7 +54,7 @@ function App() {
     <div>
       <header className="App-header">
         {/* nav-bar */}
-        <NavBar />
+        <NavBar jwt={jwt}/>
       </header>
       <div className='App-body'>
         <div className="container-fluid">
