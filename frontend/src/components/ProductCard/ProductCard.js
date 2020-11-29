@@ -38,7 +38,7 @@ const ProductCard = (props) => {
                     {`฿${props.price}`}
                 </p>
 
-                {(!props.jwt) && <a href="" className="btn btn-primary" onClick={() => purchase(props._id)}>
+                {(props.jwt) && <a href="" className="btn btn-primary" onClick={() => purchase(props._id)}>
                     Buy
                 </a>}
                 

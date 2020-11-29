@@ -89,6 +89,7 @@ function ProductPanel(props) {
 
     return (
         <div className="mt-5">
+            {console.log(props)}
             {props.jwt && <section className="mt-3">
                 <div className="container">
                     <header class="section-heading">
