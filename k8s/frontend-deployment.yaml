@@ -1,0 +1,31 @@
+apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: recommendation
+      tier: frontend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: recommendation
+        tier: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: knotnuttanai/soft-arch:frontend
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          # If your cluster config does not include a dns service, then to
+          # instead access environment variables to find service host
+          # info, comment out the 'value: dns' line above, and uncomment the
+          # line below:
+          # value: env
+        ports:
+        - containerPort: 5000
+          protocol: TCP
