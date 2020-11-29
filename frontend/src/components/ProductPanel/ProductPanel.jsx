@@ -3,16 +3,8 @@ import ProductCard from "../ProductCard/ProductCard";
 import axios from 'axios';
 
 
-<<<<<<< HEAD
-function ProductPanel() {
-    const [products, setProducts] = useState([]/*[
-||||||| 6784232
-function ProductPanel() {
-    const [products, setProducts] = useState([
-=======
 function ProductPanel(props) {
-    const [products, setProducts] = useState([
->>>>>>> 48ea793eb672d57e579aca6ddb977b6c3b714fca
+    const [products, setProducts] = useState([]/*[
                                                 {
                                                     productName:"Playstation 5",
                                                     imageName:"ps5.jpg",
