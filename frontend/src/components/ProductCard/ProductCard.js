@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import LoginModal from "../Modal/LoginModal"
 
 const ProductCard = (props) => {
 
@@ -36,9 +37,11 @@ const ProductCard = (props) => {
                 >
                     {`฿${props.price}`}
                 </p>
-                <a href="" className="btn btn-primary" onClick={() => purchase(props._id)}>
+
+                {(!props.jwt) && <a href="" className="btn btn-primary" onClick={() => purchase(props._id)}>
                     Buy
-                </a>
+                </a>}
+                
             </div>
         </div>
     );

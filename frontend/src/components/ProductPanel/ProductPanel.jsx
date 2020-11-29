@@ -3,8 +3,16 @@ import ProductCard from "../ProductCard/ProductCard";
 import axios from 'axios';
 
 
+<<<<<<< HEAD
 function ProductPanel() {
     const [products, setProducts] = useState([]/*[
+||||||| 6784232
+function ProductPanel() {
+    const [products, setProducts] = useState([
+=======
+function ProductPanel(props) {
+    const [products, setProducts] = useState([
+>>>>>>> 48ea793eb672d57e579aca6ddb977b6c3b714fca
                                                 {
                                                     productName:"Playstation 5",
                                                     imageName:"ps5.jpg",
@@ -87,11 +95,9 @@ function ProductPanel() {
         };
       },[...products, ...recommendation]);
 
-
-
     return (
         <div className="mt-5">
-            <section className="mt-3">
+            {props.jwt && <section className="mt-3">
                 <div className="container">
                     <header class="section-heading">
                         <h3 class="d-flex section-title">Recommendation</h3>
@@ -102,6 +108,7 @@ function ProductPanel() {
                                 <div className="col md-3" key={i}>
                                     <ProductCard
                                         _id = {product._id}
+                                        jwt={props.jwt}
                                         productName={product.name}
                                         imageName={product.imageName}
                                         description={product.description}
@@ -112,7 +119,7 @@ function ProductPanel() {
                         })}
                     </div>
                 </div>
-            </section>
+            </section>}
             <section className="my-3">
             <div className="container">
                 <header class="section-heading">
@@ -124,6 +131,7 @@ function ProductPanel() {
                             <div className="col md-3" key={i}>
                                 <ProductCard
                                     _id = {product._id}
+                                    jwt={props.jwt}
                                     productName={product.name}
                                     imageName={product.imageName}
                                     description={product.description}
@@ -133,9 +141,9 @@ function ProductPanel() {
                         )
                     })}
                 </div>
-            </div>
-        </section>
-    </div>
+                </div>
+                </section>
+        </div>
     )
 }
 
