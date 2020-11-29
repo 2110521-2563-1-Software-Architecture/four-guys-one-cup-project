@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 function ProductPanel(props) {
-    const [products, setProducts] = useState([
+    const [products, setProducts] = useState([]/*[
                                                 {
                                                     productName:"Playstation 5",
                                                     imageName:"ps5.jpg",
@@ -41,70 +41,55 @@ function ProductPanel(props) {
                                                     description:"Play Has No Limits I love you playstation 5",
                                                     price:"15990"
                                                 }
-                                            ]);
+                                            ]*/);
     const [recommendation, setRecommendation] = useState([
-                                                            {
-                                                                productName:"Playstation 5",
-                                                                imageName:"ps5.jpg",
-                                                                description:"Play Has No Limits I love you playstation 5",
-                                                                price:"15990"
-                                                            },
-                                                            {
-                                                                productName:"Playstation 5",
-                                                                imageName:"ps5.jpg",
-                                                                description:"Play Has No Limits I love you playstation 5",
-                                                                price:"15990"
-                                                            },
-                                                            {
-                                                                productName:"Playstation 5",
-                                                                imageName:"ps5.jpg",
-                                                                description:"Play Has No Limits I love you playstation 5",
-                                                                price:"15990"
-                                                            }
+                                                            // {
+                                                            //     productName:"Playstation 5",
+                                                            //     imageName:"ps5.jpg",
+                                                            //     description:"Play Has No Limits I love you playstation 5",
+                                                            //     price:"15990"
+                                                            // },
+                                                            // {
+                                                            //     productName:"Playstation 5",
+                                                            //     imageName:"ps5.jpg",
+                                                            //     description:"Play Has No Limits I love you playstation 5",
+                                                            //     price:"15990"
+                                                            // },
+                                                            // {
+                                                            //     productName:"Playstation 5",
+                                                            //     imageName:"ps5.jpg",
+                                                            //     description:"Play Has No Limits I love you playstation 5",
+                                                            //     price:"15990"
+                                                            // }
                                                         ]);
 
     useEffect(() => {
-        const apiUrl = 'http://localhost:9000';
+        const apiUrl = '';
 
         const getProducts = async () => {
-          const { data } = await axios.get(`${apiUrl}/products`);
-          setProducts(data.products);
+          const { data } = await axios.get('/api/products');
+          setProducts(data)
         };
     
         const clearProducts = async () => {
           setProducts([]);
         }
+
+        const getRecommendProducts = async () => {
+            const { data } = await axios.post(`/api/getSortedProducts`, {recommendAlgo:"contentbased"});
+            setRecommendation(data)
+        }
         
         getProducts();
-    
+        getRecommendProducts();
         return function cleanup() {
           clearProducts();
         };
-      });
-
-      useEffect(() => {
-        const apiUrl = 'http://localhost:9000';
-
-        const getRecommendation = async () => {
-          const { data } = await axios.get(`${apiUrl}/recommendation`);
-          setRecommendation(data.products);
-        };
-    
-        const clearRecommendation = async () => {
-          setRecommendation([]);
-        }
-        
-        getRecommendation();
-    
-        return function cleanup() {
-          clearRecommendation();
-        };
-      });
-
-
+      },[...products, ...recommendation]);
 
     return (
         <div className="mt-5">
+            {console.log(props)}
             {props.jwt && <section className="mt-3">
                 <div className="container">
                     <header class="section-heading">
@@ -115,8 +100,9 @@ function ProductPanel(props) {
                             return (
                                 <div className="col md-3" key={i}>
                                     <ProductCard
+                                        _id = {product._id}
                                         jwt={props.jwt}
-                                        productName={product.productName}
+                                        productName={product.name}
                                         imageName={product.imageName}
                                         description={product.description}
                                         price={product.price}
@@ -128,29 +114,29 @@ function ProductPanel(props) {
                 </div>
             </section>}
             <section className="my-3">
-                <div className="container">
-                    <header class="section-heading">
-                        <h3 class="section-title">Products</h3>
-                    </header>
-                    <div className="row">
-                        {products.map((product, i) => {
-                            return (
-                                <div className="col md-3" key={i}>
-                                    <ProductCard
-                                        jwt={props.jwt}
-                                        productId={product.id}
-                                        productName={product.productName}
-                                        imageName={product.imageName}
-                                        description={product.description}
-                                        price={product.price}
-                                    />
-                                </div>
-                            )
-                        })}
-                    </div>
+            <div className="container">
+                <header class="section-heading">
+                    <h3 class="section-title">Products</h3>
+                </header>
+                <div className="row">
+                    {products.map((product, i) => {
+                        return (
+                            <div className="col md-3" key={i}>
+                                <ProductCard
+                                    _id = {product._id}
+                                    jwt={props.jwt}
+                                    productName={product.name}
+                                    imageName={product.imageName}
+                                    description={product.description}
+                                    price={product.price}
+                                />
+                            </div>
+                        )
+                    })}
                 </div>
-            </section>
-    </div>
+                </div>
+                </section>
+        </div>
     )
 }
 

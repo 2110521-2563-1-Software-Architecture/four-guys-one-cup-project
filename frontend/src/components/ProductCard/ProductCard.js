@@ -2,10 +2,10 @@ import axios from "axios";
 import React from "react";
 import LoginModal from "../Modal/LoginModal"
 
-const ProfileCard = (props) => {
+const ProductCard = (props) => {
 
     function purchase(productId) {
-        axios.post("http://localhost:9000/api/userPurchase", {productId: productId})
+        axios.put("/api/userPurchase", {productId: productId})
     }
 
     return (
@@ -20,7 +20,7 @@ const ProfileCard = (props) => {
         >
             <img
                 className="card-img-top"
-                src={require(`../../static/productImages/${props.imageName}`)}
+                // src={require(`../../static/productImages/${props.imageName}`)}
                 alt={props.productName}
                 height="60%"
             />
@@ -38,7 +38,7 @@ const ProfileCard = (props) => {
                     {`฿${props.price}`}
                 </p>
 
-                {(!props.jwt) && <a href="" className="btn btn-primary" onClick={() => purchase(props.id)}>
+                {(props.jwt) && <a href="" className="btn btn-primary" onClick={() => purchase(props._id)}>
                     Buy
                 </a>}
                 
@@ -47,4 +47,4 @@ const ProfileCard = (props) => {
     );
 };
 
-export default ProfileCard;
+export default ProductCard;

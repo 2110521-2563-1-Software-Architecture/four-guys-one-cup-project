@@ -50,4 +50,3 @@ const ContentBasedFiltering = class extends RecommendProductInterface{
 }
 const contentBasedFiltering = new ContentBasedFiltering
 export {contentBasedFiltering}
-console.log(similarity([1,1,1],[1,1,1]))
