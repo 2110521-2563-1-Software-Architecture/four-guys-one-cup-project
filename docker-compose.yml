@@ -2,20 +2,20 @@ version: "3"
 
 services: 
   frontend:
+    image: knotnuttanai/soft-arch:frontend
     container_name: frontend
-    build: ./frontend
     expose: 
       - 5000
 
   backend:
+    image: knotnuttanai/soft-arch:backend
     container_name: backend
-    build: ./backend
     expose: 
       - 9000
 
   nginx:
+    image: knotnuttanai/soft-arch:nginx
     container_name: nginx
-    build: ./nginx
     ports:
       - 80:80
-      # - 443:443
+      - 443:443
