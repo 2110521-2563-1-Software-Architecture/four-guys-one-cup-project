@@ -115,6 +115,7 @@ function ProductPanel(props) {
                             return (
                                 <div className="col md-3" key={i}>
                                     <ProductCard
+                                        jwt={props.jwt}
                                         productName={product.productName}
                                         imageName={product.imageName}
                                         description={product.description}
@@ -136,6 +137,7 @@ function ProductPanel(props) {
                             return (
                                 <div className="col md-3" key={i}>
                                     <ProductCard
+                                        jwt={props.jwt}
                                         productId={product.id}
                                         productName={product.productName}
                                         imageName={product.imageName}

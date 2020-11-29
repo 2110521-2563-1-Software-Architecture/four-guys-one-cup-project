@@ -42,12 +42,4 @@ const checkToken = (req, res, next) => {
             res.status(200).send(decoded);
         });
     }
-const getCurrentUser = (req) => {
-        var token = req.headers["x-access-token"];
-        if (!token) throw Error("No token provided.");
-        return jwt.verify(token, config.secret, function (err, decoded) {
-            if (err) throw Error("Failed to authenticate token.");
-            return decoded;
-        });
-    }
- export {loginAttempt, checkToken, getCurrentUser}
+ export {loginAttempt, checkToken}

@@ -1,11 +1,11 @@
 import axios from "axios";
 import React from "react";
+import LoginModal from "../Modal/LoginModal"
 
 const ProfileCard = (props) => {
 
-    function addToCart(user,product) {
-        console.log(product)
-        axios.post("http://localhost:9000/api/addToCart", {userId:"TODO", productId: product.id})
+    function purchase(productId) {
+        axios.post("http://localhost:9000/api/userPurchase", {productId: productId})
     }
 
     return (
@@ -37,9 +37,11 @@ const ProfileCard = (props) => {
                 >
                     {`฿${props.price}`}
                 </p>
-                <a href="" className="btn btn-primary" onClick={() => addToCart("Todo",props)}>
-                    Add to Cart
-                </a>
+
+                {(!props.jwt) && <a href="" className="btn btn-primary" onClick={() => purchase(props.id)}>
+                    Buy
+                </a>}
+                
             </div>
         </div>
     );
