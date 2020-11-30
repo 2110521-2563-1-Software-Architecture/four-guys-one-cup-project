@@ -28,8 +28,24 @@ function Register() {
                 "nationality": nationality,
                 "occupation": occupation
             }
+        try {
+            const response = await axios.post("/api/users/register", data)
+        } catch (err) {
+            alert('Something Wrong')
+        }
+
         
-        const response = await axios.post("http://localhost:9000/api/users/register", data)
+
+        axios.post("/api/users/login",data).then((res) => {
+            if(res.data.auth === true){
+                localStorage.setItem('token', res.data.token);
+                axios.defaults.headers.common['x-access-token'] = res.data.token;
+                window.location.reload()
+            }
+          }).catch((err) => {
+              alert('Something wrong');
+              console.log(err);
+          })
         // const response = await fetch("/api/users/register", {
         //     method: 'POST',
         //     headers: {'Content-Type': 'application/json'},

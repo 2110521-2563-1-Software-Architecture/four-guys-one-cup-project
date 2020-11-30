@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken"
-
+import config from "../config.js"
 const decryptData = (req, res, next) => {
-    var token = req.headers["x-access-token"];
-    if (!token)
+    var token = req.headers["authorization"].substring(7);
+    if (token=="null")
         return res
             .status(401)
             .send({ auth: false, message: "No token provided." });

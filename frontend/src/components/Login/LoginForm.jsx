@@ -14,12 +14,13 @@ function Login() {
             "password": password
         }
 
-        axios.post("http://localhost:9000/api/users/login",data).then((res) => {
+        axios.post("/api/users/login",data).then((res) => {
       
 
             if(res.data.auth === true){
                 localStorage.setItem('token', res.data.token);
                 axios.defaults.headers.common['x-access-token'] = res.data.token;
+                window.location.reload()
             }
           }).catch((err) => {
               alert('Something wrong');

@@ -3,7 +3,30 @@ import SearchBar from "../SearchBar/SearchBar";
 import LoginModal from "../Modal/LoginModal"
 import RegisterModal from "../Modal/RegisterModal"
 
-const NavBar = () => {
+const NavBar = (props) => {
+
+    const conditionalRender = () => {
+        if (!props.jwt) {
+            return (
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <RegisterModal/>
+                        </li>
+                        <li className="nav-item">
+                            <LoginModal/>
+                        </li>
+                    </ul>
+                    )
+        }
+        return (<ul className="navbar-nav ml-auto">
+                    <li className="nav-item" onClick={()=>{localStorage.removeItem("token");window.location.reload();}}>
+                        <a className="nav-link" href="#">
+                            Logout
+                        </a>
+                    </li>
+                </ul>)
+        }
+
     
     return (
         // </nav>
@@ -35,25 +58,18 @@ const NavBar = () => {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="">
                                 Product
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="">
                                 Payment
                             </a>
                         </li>
                     </ul>
                     <SearchBar />
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <RegisterModal/>
-                        </li>
-                        <li className="nav-item">
-                            <LoginModal/>
-                        </li>
-                    </ul>
+                    {conditionalRender()}
                 </div>
             </div>
         </nav>
